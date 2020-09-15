@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" lang="eng">
+	<title>DojoReads</title>
+</head>
+<body>
+	<a href="/gohome">Home</a>
+	<h1>{{book_to_display.title}}</h1>
+	<p>{{book_to_display.author.author_name}}</p>
+	<br>
+	<h2>Reviews:</h2>
+
+	{% for review in reviews %}
+
+	<div class="reviews">
+	<p>Rating: {{review.rating}}</p>
+	<p><a href="/viewuser/{{review.user.id}}">{{review.user.user_name}}</a> says: {{review.comment}}</p>
+	<p>Posted on {{review.created_at}}</p>
+	{% if loggedinUser == review.user %}
+	<a href="/boop/{{review.id}}">Delete this Review</a>
+	</dir>
+	<br>
+	{% endif %}
+	{% endfor %}
+
+	<div>
+		<h2>Add a Review:</h2>
+		<form action="/addreview/{{book_to_display.id}}" method="post">
+		{% csrf_token %}
+		Review:<textarea name="comment" cols="30" rows="10"></textarea>
+		Rating:<select name="rating">
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+			</select>
+			<input type="submit" name="" value="Submit Review">
+		</form>
+	</div>	
+{% if messages %}
+<ul class="messages">    
+    {% for message in messages %}    
+        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+    {% endfor %}
+</ul>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" lang="eng">
+	<title>DojoReads</title>
+</head>
+<body>
+	<a href="/gohome">home</a>
+	<a class="add" href="/add_book_and_review">Add Book and Review</a>
+	<a href="">Logout</a>
+	<h3>User Alias: {{user_to_display.alias}}</h3>
+	<h3>Name: {{user_to_display.user_name}}</h3>
+	<h3>Email: {{user_to_display.email}}</h3>
+	<h3>Total Reviews:{{user_to_display.reviews.count}} </h3>
+	<br>
+	<h2>Posted Reviews on the following books:</h2>
+	{% for review in reviews %}
+	<a href="/viewbook/{{review.book.id}}">{{review.book.title}}</a>
+	{% endfor %}
+</body>
+</html>
